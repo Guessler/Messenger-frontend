@@ -18,10 +18,15 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import SettingsIcon from '@mui/icons-material/Settings';
 import PhoneCallbackIcon from '@mui/icons-material/PhoneCallback';
 
+import { env } from "@utils";
+
+const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
+
 const drawerWidth = 80;
 
 const Drawer = styled(MuiDrawer)(({ theme }) => ({
     width: drawerWidth,
+    height: "95vh",
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
@@ -32,10 +37,11 @@ const Drawer = styled(MuiDrawer)(({ theme }) => ({
         backgroundColor: '#FFFFFF',
         borderRight: 'none',
         borderTop: 'none',
-        margin: 20,
         borderRadius: 12,
         padding: '10px', 
+        position: "relative ",
     },
+
 }));
 
 export default function SideBar() {
@@ -49,8 +55,10 @@ export default function SideBar() {
     ];
 
     return (
-        <Box sx={{ display: 'flex', height: "100%" }}>
+    
+    <Box sx={{ display: 'flex', position: "relative", height: "100%"  }}>
             <Drawer variant="permanent" open={false}>
+                <img src={`${MINIO_BUCKET_URL}/tinyline.svg`} alt={`${MINIO_BUCKET_URL}/tinyline.svg`} />
                 <List
                     sx={{
                         display: 'flex',

@@ -58,7 +58,7 @@ export default function SideBar() {
     
     <Box sx={{ display: 'flex', position: "relative", height: "100%"  }}>
             <Drawer variant="permanent" open={false}>
-                <img src={`${MINIO_BUCKET_URL}/tinyline.svg`} alt={`${MINIO_BUCKET_URL}/tinyline.svg`} />
+                {/* <img src={`${MINIO_BUCKET_URL}/tinyline.svg`} alt={`${MINIO_BUCKET_URL}/tinyline.svg`} /> */}
                 <List
                     sx={{
                         display: 'flex',

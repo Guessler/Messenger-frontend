@@ -10,6 +10,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 
 import ChatIcon from '@mui/icons-material/Chat';
 import GroupIcon from '@mui/icons-material/Group';
@@ -38,27 +39,32 @@ const Drawer = styled(MuiDrawer)(({ theme }) => ({
         borderRight: 'none',
         borderTop: 'none',
         borderRadius: 12,
-        padding: '10px', 
-        position: "relative ",
+        padding: '10px',
+        position: "relative",
     },
-
 }));
 
-export default function SideBar() {
+interface SideBarProps {
+    currentPath: string;
+}
+
+export default function SideBar({ currentPath }: SideBarProps) {
     const menuItems = [
-        { text: 'Chats', icon: <ChatIcon /> },
-        { text: 'Contacts', icon: <AccountCircleIcon /> },
-        { text: 'PhoneCalls', icon: <PhoneCallbackIcon /> },
-        { text: 'Groups', icon: <GroupIcon /> },
-        { text: 'Notifications', icon: <NotificationsIcon /> },
-        { text: 'Settings', icon: <SettingsIcon /> },
+        { text: 'Chats', icon: <ChatIcon />, path: '/chats' },
+        { text: 'Contacts', icon: <AccountCircleIcon />, path: '/contacts' },
+        { text: 'PhoneCalls', icon: <PhoneCallbackIcon />, path: '/calls' },
+        { text: 'Groups', icon: <GroupIcon />, path: '/groups' },
+        { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications' },
+        { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
     ];
 
+    const isActive = (path: string) => {
+        return currentPath.startsWith(path);
+    };
+
     return (
-    
-    <Box sx={{ display: 'flex', position: "relative", height: "100%"  }}>
+        <Box sx={{ display: 'flex', position: "relative", height: "100%" }}>
             <Drawer variant="permanent" open={false}>
-                {/* <img src={`${MINIO_BUCKET_URL}/tinyline.svg`} alt={`${MINIO_BUCKET_URL}/tinyline.svg`} /> */}
                 <List
                     sx={{
                         display: 'flex',
@@ -70,60 +76,53 @@ export default function SideBar() {
                 >
                     {menuItems.map((item) => (
                         <ListItem key={item.text} disablePadding>
-                            <ListItemButton
-                                sx={{
-                                    maxWidth: 50,
-                                    justifyContent: 'center',
-                                    borderRadius: '12px',
-                                    transition: 'all 0.2s ease-in-out',
-                                    color: '#333333',
-                                    mx: 'auto',
-
-                                    '&:hover': {
-                                        backgroundColor: 'rgba(34, 109, 230, 0.1)',
-                                    },
-
-                                    '&:active': {
-                                        backgroundColor: '#226DE6',
-                                        color: '#FFFFFF',
-
-                                        '& .MuiListItemIcon-root': {
-                                            color: '#FFFFFF',
-                                        },
-                                    },
-
-                                    '&:focus-visible': {
-                                        outline: '2px solid #226DE6',
-                                        outlineOffset: -2,
-                                        boxShadow: '0 0 0 2px rgba(34, 109, 230, 0.4)',
-                                    },
-                                }}
-                            >
-                                <ListItemIcon
+                            <Link href={item.path}>
+                                <ListItemButton
                                     sx={{
-                                        minWidth: 0,
+                                        maxWidth: 50,
                                         justifyContent: 'center',
-                                        color: '#7F7F7F',
-                                        transition: 'color 0.2s ease-in-out',
+                                        borderRadius: '12px',
+                                        transition: 'all 0.2s ease-in-out',
+                                        color: '#333333',
+                                        mx: 'auto',
+                                        backgroundColor: isActive(item.path) ? '#226DE6' : 'transparent',
+                                        // color: isActive(item.path) ? '#FFFFFF' : '#333333',
 
                                         '&:hover': {
-                                            color: '#333333',
+                                            backgroundColor: isActive(item.path)
+                                                ? '#226DE6'
+                                                : 'rgba(34, 109, 230, 0.1)',
                                         },
 
-                                        '&:active': {
-                                            color: '#FFFFFF',
+                                        '&:focus-visible': {
+                                            outline: '2px solid #226DE6',
+                                            outlineOffset: -2,
+                                            boxShadow: '0 0 0 2px rgba(34, 109, 230, 0.4)',
                                         },
                                     }}
                                 >
-                                    {item.icon}
-                                </ListItemIcon>
-                                <ListItemText
-                                    primary={<Typography variant="body2">{item.text}</Typography>}
-                                    sx={{
-                                        opacity: 0,
-                                    }}
-                                />
-                            </ListItemButton>
+                                    <ListItemIcon
+                                        sx={{
+                                            minWidth: 0,
+                                            justifyContent: 'center',
+                                            color: isActive(item.path) ? '#FFFFFF' : '#7F7F7F',
+                                            transition: 'color 0.2s ease-in-out',
+
+                                            '&:hover': {
+                                                color: isActive(item.path) ? '#FFFFFF' : '#333333',
+                                            },
+                                        }}
+                                    >
+                                        {item.icon}
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={<Typography variant="body2">{item.text}</Typography>}
+                                        sx={{
+                                            opacity: 0,
+                                        }}
+                                    />
+                                </ListItemButton>
+                            </Link>
                         </ListItem>
                     ))}
                 </List>

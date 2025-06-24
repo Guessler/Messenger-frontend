@@ -1,8 +1,19 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import {env} from "@utils"
+import { env } from "@utils";
+import type { ReactNode } from 'react';
 
-const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
+export async function generateMetadata(): Promise<Metadata> {
+  const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
+
+  return {
+    title: 'TinyLine',
+    description: 'TinyLine — private messaging made simple...',
+    icons: {
+      icon: `${MINIO_BUCKET_URL}/tinyline.svg`,
+    },
+  };
+}
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,19 +25,11 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'TinyLine',
-  description: 'TinyLine — private messaging made simple. Built with security in mind and designed for real conversations. Small by size. Big on privacy.',
-  icons: {
-    icon: `${MINIO_BUCKET_URL}/tinyline.svg`,
-  },
-};
-
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>

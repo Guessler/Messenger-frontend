@@ -9,13 +9,13 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Divider from '@mui/material/Divider';
 import FormLabel from '@mui/material/FormLabel';
 import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { FacebookIcon, GoogleIcon, SitemarkIcon } from '../ui/CustomIcons';
+import { FacebookIcon, GoogleIcon, SitemarkIcon } from '../../components/ui/CustomIcons';
+import Link from 'next/link';
 
 const StyledCard = styled(Card)(({ theme }) => ({
     display: 'flex',
@@ -122,10 +122,8 @@ export default function SignIn() {
                             Sign in
                         </Button>
                         <Link
-                            component="button"
+                            href={''}
                             type="button"
-                            variant="body2"
-                            sx={{ alignSelf: 'center' }}
                         >
                             Forgot your password?
                         </Link>
@@ -150,7 +148,7 @@ export default function SignIn() {
                         </Button>
                         <Typography sx={{ textAlign: 'center' }}>
                             Don&apos;t have an account?{' '}
-                            <Link href="/register" variant="body2" sx={{ alignSelf: 'center' }}>
+                            <Link href="/sign-up">
                                 Sign up
                             </Link>
                         </Typography>

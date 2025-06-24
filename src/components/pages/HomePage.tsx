@@ -13,7 +13,6 @@ const SideBar = dynamic(() => import('../ui/SideBar/SideBar'), {
 export default function HomePage() {
     return (
         <Box sx={{display: "flex", gap: "20px"}}>
-            {/* <Register/> */}
             <SideBar />
             <Contacts/>
             <WorkSpace/>

@@ -1,5 +1,5 @@
 import  HomePage  from '@/components/pages/HomePage';
-import Register from '@/components/pages/Register';
+import Register from '@/app/sign-in/Register';
 import React from 'react';
 import "../styles/globals.css"
 

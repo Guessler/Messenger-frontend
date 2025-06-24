@@ -5,9 +5,9 @@ import { Box } from '@mui/material';
 
 export default function ChatsPage() {
     return (
-        <Box sx={{ display: "flex", gap: "20px" }}>
-            <Contacts/>
-            <WorkSpace/>
-        </Box>
+            <Box sx={{display: "flex", gap: "20px"}}>
+                <Contacts />
+                <WorkSpace />
+            </Box>
     );
 }

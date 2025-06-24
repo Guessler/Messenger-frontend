@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { env } from "@utils";
 import type { ReactNode } from 'react';
+import DefaultLayout from '@/components/DefaultLayout';
+import "../styles/globals.css"
+import { ThemeProvider } from '@mui/material/styles';
 
 export async function generateMetadata(): Promise<Metadata> {
   const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
@@ -33,7 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+            <DefaultLayout>
+              {children}
+            </DefaultLayout>
       </body>
     </html>
   );

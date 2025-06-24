@@ -6,7 +6,6 @@ import {
     ListItemButton,
     ListItemText,
     Typography,
-    alpha,
 } from '@mui/material';
 
 const WorkSpace = () => {
@@ -29,24 +28,22 @@ const WorkSpace = () => {
                     height: '50px',
                     padding: 0,
                     maxHeight: '50px',
-
-
                 }}
             >
                 <ListItemAvatar>
                     <Avatar />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={
-                        <Typography noWrap>
-                            TL
-                        </Typography>
-                    }
-                    secondary={
-                        <Typography noWrap color="text.secondary">
-                            20.02.2025
-                        </Typography>
-                    }
+                    primary="TL"
+                    secondary="20.02.2025"
+                    primaryTypographyProps={{ 
+                        noWrap: true,
+                        component: 'div' 
+                    }}
+                    secondaryTypographyProps={{
+                        component: 'span',
+                        noWrap: true
+                    }}
                 />
             </ListItemButton>
 

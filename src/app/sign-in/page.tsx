@@ -14,8 +14,13 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import Card from '@mui/material/Card';
 import { styled } from '@mui/material/styles';
-import { FacebookIcon, GoogleIcon, SitemarkIcon } from '../../components/ui/CustomIcons';
+import { FacebookIcon, GoogleIcon } from '../../components/ui/CustomIcons';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import { loginUser } from '@/utils/api';
+import { LoginUserDto } from '@/types/user';
+
 
 const StyledCard = styled(Card)(({ theme }) => ({
     display: 'flex',
@@ -60,28 +65,77 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignIn() {
+    const router = useRouter();
+
+    const mutation = useMutation({
+        mutationFn: loginUser,
+        onSuccess: (data) => {
+            console.log('Успешный вход:', data);
+            localStorage.setItem('token', data.token);
+            router.push('/');
+        },
+        onError: (error: any) => {
+            const message =
+                error.response?.data?.message ||
+                'Ошибка входа. Проверьте данные.';
+            alert(message);
+        },
+    });
+
+    const [emailError, setEmailError] = React.useState(false);
+    const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
+    const [passwordError, setPasswordError] = React.useState(false);
+    const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
+
+    const validateInputs = () => {
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        const passwordInput = document.getElementById('password') as HTMLInputElement;
+
+        let isValid = true;
+
+        if (!emailInput.value || !/\S+@\S+\.\S+/.test(emailInput.value)) {
+            setEmailError(true);
+            setEmailErrorMessage('Введите корректный email');
+            isValid = false;
+        } else {
+            setEmailError(false);
+            setEmailErrorMessage('');
+        }
+
+        if (!passwordInput.value || passwordInput.value.length < 6) {
+            setPasswordError(true);
+            setPasswordErrorMessage('Пароль должен быть не менее 6 символов');
+            isValid = false;
+        } else {
+            setPasswordError(false);
+            setPasswordErrorMessage('');
+        }
+
+        return isValid;
+    };
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        if (!validateInputs()) return;
+
+        const formData = new FormData(event.currentTarget);
+        const userData: LoginUserDto = {
+            email: formData.get('email') as string,
+            password: formData.get('password') as string,
+        };
+
+        mutation.mutate(userData);
+    };
+
     return (
         <>
             <CssBaseline enableColorScheme />
             <SignInContainer direction="column" justifyContent="space-between">
                 <StyledCard variant="outlined">
-                    <Typography
-                        component="h1"
-                        variant="h4"
-                        sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
-                    >
+                    <Typography component="h1" variant="h4">
                         Sign in
                     </Typography>
-                    <Box
-                        component="form"
-                        noValidate
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            width: '100%',
-                            gap: 2,
-                        }}
-                    >
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         <FormControl>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <TextField
@@ -94,6 +148,9 @@ export default function SignIn() {
                                 required
                                 fullWidth
                                 variant="outlined"
+                                error={emailError}
+                                helperText={emailErrorMessage}
+                                color={emailError ? 'error' : 'primary'}
                             />
                         </FormControl>
                         <FormControl>
@@ -108,6 +165,9 @@ export default function SignIn() {
                                 required
                                 fullWidth
                                 variant="outlined"
+                                error={passwordError}
+                                helperText={passwordErrorMessage}
+                                color={passwordError ? 'error' : 'primary'}
                             />
                         </FormControl>
                         <FormControlLabel
@@ -118,13 +178,11 @@ export default function SignIn() {
                             type="submit"
                             fullWidth
                             variant="contained"
+                            disabled={mutation.isPending}
                         >
-                            Sign in
+                            {mutation.isPending ? 'Вход...' : 'Sign in'}
                         </Button>
-                        <Link
-                            href={''}
-                            type="button"
-                        >
+                        <Link href="#" type="button">
                             Forgot your password?
                         </Link>
                     </Box>
@@ -148,9 +206,7 @@ export default function SignIn() {
                         </Button>
                         <Typography sx={{ textAlign: 'center' }}>
                             Don&apos;t have an account?{' '}
-                            <Link href="/sign-up">
-                                Sign up
-                            </Link>
+                            <Link href="/sign-up">Sign up</Link>
                         </Typography>
                     </Box>
                 </StyledCard>

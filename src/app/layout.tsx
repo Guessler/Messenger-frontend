@@ -4,6 +4,7 @@ import { env } from "@utils";
 import type { ReactNode } from 'react';
 import DefaultLayout from '@/components/DefaultLayout';
 import "../styles/globals.css"
+import { ReactQueryProvider } from '@/providers/ReactQuerry';
 
 export async function generateMetadata(): Promise<Metadata> {
   const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
@@ -35,9 +36,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-            <DefaultLayout>
-              {children}
-            </DefaultLayout>
+        <ReactQueryProvider>
+          <DefaultLayout>
+            {children}
+          </DefaultLayout>
+        </ReactQueryProvider>
       </body>
     </html>
   );

@@ -18,7 +18,7 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
         setMounted(true);
     }, []);
 
-    const hideSidebarPaths = ['/register', '/login'];
+    const hideSidebarPaths = ['/sign-in', '/sign-up'];
     const showSidebar = !hideSidebarPaths.includes(pathname);
 
     if (!mounted) {

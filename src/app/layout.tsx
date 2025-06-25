@@ -4,7 +4,6 @@ import { env } from "@utils";
 import type { ReactNode } from 'react';
 import DefaultLayout from '@/components/DefaultLayout';
 import "../styles/globals.css"
-import { ThemeProvider } from '@mui/material/styles';
 
 export async function generateMetadata(): Promise<Metadata> {
   const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;

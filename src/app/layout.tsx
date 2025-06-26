@@ -1,16 +1,13 @@
+// app/layout.tsx
+
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import { env } from "@utils";
-import type { ReactNode } from 'react';
 import DefaultLayout from '@/components/DefaultLayout';
-import "../styles/globals.css"
-import { ReactQueryProvider } from '@/providers/ReactQuerry';
-import { Provider } from 'react-redux';
-import { setupStore } from '@/store/store';
+import "../styles/globals.css";
+import { Providers } from './Providers';
 
 export async function generateMetadata(): Promise<Metadata> {
-  const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
-
+  const MINIO_BUCKET_URL = process.env.MINIO_BUCKET_URL || '';
   return {
     title: 'TinyLine',
     description: 'TinyLine — private messaging made simple...',
@@ -33,18 +30,14 @@ const geistMono = Geist_Mono({
 export default function RootLayout({
   children,
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {/* <Provider store = {setupStore()}> */}
-          <ReactQueryProvider>
-            <DefaultLayout>
-              {children}
-            </DefaultLayout>
-          </ReactQueryProvider>
-        {/* </Provider> */}
+        <Providers>
+          <DefaultLayout>{children}</DefaultLayout>
+        </Providers>
       </body>
     </html>
   );

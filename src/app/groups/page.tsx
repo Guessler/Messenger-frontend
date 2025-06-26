@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
     Box,
@@ -5,6 +6,7 @@ import {
     Container,
     Stack,
 } from '@mui/material';
+import { withAuth } from '@/hoc/withAuth';
 
 const Groups = () => {
     return (
@@ -36,4 +38,4 @@ const Groups = () => {
     );
 };
 
-export default Groups;
+export default withAuth(Groups);

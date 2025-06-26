@@ -1,5 +1,6 @@
 'use client';
-import * as React from 'react';
+
+import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
@@ -20,6 +21,8 @@ import { useMutation } from '@tanstack/react-query';
 
 import { registerUser } from '@/utils/api';
 import { RegisterUserDto } from '@/types/user';
+import { withAuthProtection } from '@/hoc/withRedirectIfAuth';
+import { withAuth } from '@/hoc/withAuth';
 
 const Card = styled(MuiCard)(({ theme }) => ({
     display: 'flex',
@@ -63,7 +66,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-export default function SignUp() {
+function SignUp() {
     const router = useRouter();
 
     const mutation = useMutation({
@@ -95,8 +98,7 @@ export default function SignUp() {
 
         let isValid = true;
 
-        // Валидация имени
-        if (!nameInput.value || nameInput.value.length < 1) {
+        if (!nameInput?.value || nameInput.value.length < 1) {
             setNameError(true);
             setNameErrorMessage('Name is required.');
             isValid = false;
@@ -105,8 +107,7 @@ export default function SignUp() {
             setNameErrorMessage('');
         }
 
-        // Валидация email
-        if (!emailInput.value || !/\S+@\S+\.\S+/.test(emailInput.value)) {
+        if (!emailInput?.value || !/\S+@\S+\.\S+/.test(emailInput.value)) {
             setEmailError(true);
             setEmailErrorMessage('Please enter a valid email address.');
             isValid = false;
@@ -115,8 +116,7 @@ export default function SignUp() {
             setEmailErrorMessage('');
         }
 
-        // Валидация пароля
-        if (!passwordInput.value || passwordInput.value.length < 6) {
+        if (!passwordInput?.value || passwordInput.value.length < 6) {
             setPasswordError(true);
             setPasswordErrorMessage('Password must be at least 6 characters long.');
             isValid = false;
@@ -136,7 +136,7 @@ export default function SignUp() {
         const userData: RegisterUserDto = {
             email: formData.get('email') as string,
             password: formData.get('password') as string,
-            // name: formData.get('name') as string,
+            name: formData.get('name') as string,
         };
 
         mutation.mutate(userData);
@@ -239,3 +239,6 @@ export default function SignUp() {
         </>
     );
 }
+
+
+export default withAuth(SignUp, { isPublic: true });

@@ -20,6 +20,8 @@ import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser } from '@/utils/api';
 import { LoginUserDto } from '@/types/user';
+import { withAuthProtection } from '@/hoc/withRedirectIfAuth';
+import { withAuth } from '@/hoc/withAuth';
 
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -64,7 +66,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-export default function SignIn() {
+function SignIn() {
     const router = useRouter();
 
     const mutation = useMutation({
@@ -214,3 +216,6 @@ export default function SignIn() {
         </>
     );
 }
+
+
+export default withAuth(SignIn, { isPublic: true });

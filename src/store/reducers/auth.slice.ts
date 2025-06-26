@@ -1,54 +1,55 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface User {
+    id: number;
+    email: string;
+    roles: string[];
+}
 
-// import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+export interface AuthState {
+    token: string | null;
+    user: User | null;
+    isAuthenticated: boolean;
+}
 
-// interface AuthState {
-//     token: string | null;
-//     user: {
-//         id: number | null;
-//         email: string | null;
-//         roles: string[];
-//     };
-//     isAuthenticated: boolean;
-// }
+// Восстанавливаем токен из localStorage
+const storedToken = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
-// const initialState: AuthState = {
-//     token: localStorage.getItem('token') || null,
-//     user: {
-//         id: null,
-//         email: null,
-//         roles: [],
-//     },
-//     isAuthenticated: !!localStorage.getItem('token'),
-// };
+const initialState: AuthState = {
+    token: storedToken,
+    user: null, // Пока не восстанавливаем пользователя — его нужно получить с сервера
+    isAuthenticated: !!storedToken,
+};
 
-// const authSlice = createSlice({
-//     name: 'auth',
-//     initialState,
-//     reducers: {
-//         setCredentials: (
-//             state,
-//             action: PayloadAction<{ token: string; user: { id: number; email: string; roles: string[] } }>
-//         ) => {
-//             const { token, user } = action.payload;
-//             state.token = token;
-//             state.user = user;
-//             state.isAuthenticated = true;
-//             localStorage.setItem('token', token);
-//         },
-//         logout: (state) => {
-//             state.token = null;
-//             state.user = {
-//                 id: null,
-//                 email: null,
-//                 roles: [],
-//             };
-//             state.isAuthenticated = false;
-//             localStorage.removeItem('token');
-//         },
-//     },
-// });
+const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        setCredentials: (
+            state,
+            action: PayloadAction<{ token: string; user: User }>
+        ) => {
+            const { token, user } = action.payload;
+            state.token = token;
+            state.user = user;
+            state.isAuthenticated = true;
 
-// export const { setCredentials, logout } = authSlice.actions;
+            if (typeof window !== 'undefined') {
+                localStorage.setItem('token', token);
+            }
+        },
+        logout: (state) => {
+            state.token = null;
+            state.user = null;
+            state.isAuthenticated = false;
 
-// export default authSlice.reducer;
+            if (typeof window !== 'undefined') {
+                localStorage.removeItem('token');
+            }
+        },
+    },
+});
+
+export const { setCredentials, logout } = authSlice.actions;
+
+export default authSlice.reducer;

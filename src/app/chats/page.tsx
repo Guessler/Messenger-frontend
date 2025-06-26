@@ -1,13 +1,18 @@
+'use client';
+
 import React from 'react';
 import Contacts from '@/components/ui/Contacts/Contacts';
 import WorkSpace from '@/components/ui/WorkSpace/WorkSpace';
 import { Box } from '@mui/material';
+import { withAuth } from '@/hoc/withAuth';
 
-export default function ChatsPage() {
+function ChatsPage() {
     return (
-            <Box sx={{display: "flex", gap: "20px"}}>
-                <Contacts />
-                <WorkSpace />
-            </Box>
+        <Box sx={{ display: "flex", gap: "20px" }}>
+            <Contacts />
+            <WorkSpace />
+        </Box>
     );
 }
+
+export default withAuth(ChatsPage);

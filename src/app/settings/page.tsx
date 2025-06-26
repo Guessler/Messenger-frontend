@@ -9,8 +9,9 @@ import {
     Button,
 } from '@mui/material';
 import { getUserFromToken} from '@/utils/auth.utils';
+import { withAuth } from '@/hoc/withAuth';
 
-export default function Settings() {
+function Settings() {
     const user = getUserFromToken();
 
     const handleLogout = () => {
@@ -64,3 +65,5 @@ export default function Settings() {
         </Box>
     );
 }
+
+export default withAuth(Settings)

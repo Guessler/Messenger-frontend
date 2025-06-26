@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import {
     Box,
@@ -5,6 +6,7 @@ import {
     Container,
     Stack,
 } from '@mui/material';
+import { withAuth } from '@/hoc/withAuth';
 
 const Notifications = () => {
     return (
@@ -36,4 +38,4 @@ const Notifications = () => {
     );
 };
 
-export default Notifications;
+export default withAuth(Notifications);

@@ -5,6 +5,8 @@ import type { ReactNode } from 'react';
 import DefaultLayout from '@/components/DefaultLayout';
 import "../styles/globals.css"
 import { ReactQueryProvider } from '@/providers/ReactQuerry';
+import { Provider } from 'react-redux';
+import { setupStore } from '@/store/store';
 
 export async function generateMetadata(): Promise<Metadata> {
   const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
@@ -36,11 +38,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ReactQueryProvider>
-          <DefaultLayout>
-            {children}
-          </DefaultLayout>
-        </ReactQueryProvider>
+        {/* <Provider store = {setupStore()}> */}
+          <ReactQueryProvider>
+            <DefaultLayout>
+              {children}
+            </DefaultLayout>
+          </ReactQueryProvider>
+        {/* </Provider> */}
       </body>
     </html>
   );

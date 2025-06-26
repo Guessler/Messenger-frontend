@@ -1,10 +1,12 @@
 import React from 'react';
 import {
     Box,
-
+    Typography,
+    Container,
+    Stack,
 } from '@mui/material';
 
-const Calls = () => {
+const Account = () => {
     return (
         <Box
             sx={{
@@ -14,12 +16,24 @@ const Calls = () => {
                 height: '96vh',
                 borderRadius: '12px',
                 backgroundColor: '#FFFFFF',
-                padding: '20px',
-                boxSizing: "border-box"
+                padding: { xs: '16px', sm: '20px' },
+                boxSizing: 'border-box',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
         >
+            <Container maxWidth="sm">
+                <Stack spacing={2} textAlign="center">
+                    <Typography variant="h5" component="h1" fontWeight="bold" color="text.primary">
+                        👤 Личный кабинет в разработке
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                        Здесь будет отображаться информация вашего профиля. Скоро!
+                    </Typography>
+                </Stack>
+            </Container>
         </Box>
     );
 };
 
-export default Calls;
+export default Account;

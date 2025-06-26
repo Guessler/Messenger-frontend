@@ -1,7 +1,9 @@
 import React from 'react';
 import {
     Box,
-
+    Typography,
+    Container,
+    Stack,
 } from '@mui/material';
 
 const Calls = () => {
@@ -14,10 +16,22 @@ const Calls = () => {
                 height: '96vh',
                 borderRadius: '12px',
                 backgroundColor: '#FFFFFF',
-                padding: '20px',
-                boxSizing: "border-box"
+                padding: { xs: '16px', sm: '20px' },
+                boxSizing: 'border-box',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
         >
+            <Container maxWidth="sm">
+                <Stack spacing={2} textAlign="center">
+                    <Typography variant="h5" component="h1" fontWeight="bold" color="text.primary">
+                        🛠 Этот сервис в разработке
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                        Скоро здесь будет функционал для звонков. Спасибо за понимание!
+                    </Typography>
+                </Stack>
+            </Container>
         </Box>
     );
 };

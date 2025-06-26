@@ -18,7 +18,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 
-// API
 import { registerUser } from '@/utils/api';
 import { RegisterUserDto } from '@/types/user';
 

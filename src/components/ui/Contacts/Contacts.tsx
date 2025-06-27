@@ -14,6 +14,8 @@ import { RuText } from '../../../consts/text/ru';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import Contact from './Contact';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { openModal } from '@/store/reducers/modalReducer';
 
 const SearchWrapper = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -51,7 +53,9 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Contacts = () => {
-    const theme = useTheme();
+
+    const dispatch = useAppDispatch()
+    // const selector = useAppSelector(state => state.)
 
     return (
         <Box
@@ -94,9 +98,10 @@ const Contacts = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         '&:hover': {
-                            backgroundColor: alpha(theme.palette.primary.main, 0.1),
+                            // backgroundColor: alpha(theme.palette.primary.main, 0.1),
                         },
                     }}
+                    onClick={() => dispatch(openModal())}
                 >
                     <EditIcon fontSize="small" />
                 </Button>
@@ -118,7 +123,7 @@ const Contacts = () => {
                 </SearchWrapper>
             </Box>
 
-                <Contact />
+            <Contact />
         </Box>
     );
 };

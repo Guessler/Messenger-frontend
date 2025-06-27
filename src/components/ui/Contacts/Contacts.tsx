@@ -1,4 +1,5 @@
-'use client'
+'use client';
+
 import React from 'react';
 import {
     Box,
@@ -7,15 +8,14 @@ import {
     styled,
     InputBase,
     alpha,
-    useTheme,
 } from '@mui/material';
 
 import { RuText } from '../../../consts/text/ru';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import Contact from './Contact';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { openModal } from '@/store/reducers/modalReducer';
+import { useDispatch } from 'react-redux';
+import { selectWorkspace } from '@/store/reducers/workspaceReducer';
 
 const SearchWrapper = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -53,9 +53,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const Contacts = () => {
-
-    const dispatch = useAppDispatch()
-    // const selector = useAppSelector(state => state.)
+    const dispatch = useDispatch();
 
     return (
         <Box
@@ -83,7 +81,6 @@ const Contacts = () => {
                 }}
             >
                 <Typography variant="h6">{RuText.MESSAGES}</Typography>
-
                 <Button
                     sx={{
                         width: 50,
@@ -97,11 +94,8 @@ const Contacts = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        '&:hover': {
-                            // backgroundColor: alpha(theme.palette.primary.main, 0.1),
-                        },
                     }}
-                    onClick={() => dispatch(openModal())}
+                    onClick={() => { }} // Можно подключить модальное окно
                 >
                     <EditIcon fontSize="small" />
                 </Button>
@@ -116,14 +110,12 @@ const Contacts = () => {
                         placeholder="Поиск…"
                         inputProps={{ 'aria-label': 'поиск контактов' }}
                         className="search-input"
-                        sx={{
-                            fontSize: '0.875rem',
-                        }}
+                        sx={{ fontSize: '0.875rem' }}
                     />
                 </SearchWrapper>
             </Box>
 
-            <Contact />
+            <Contact onSelectWorkspace={(workspaceId) => dispatch(selectWorkspace(workspaceId))} />
         </Box>
     );
 };

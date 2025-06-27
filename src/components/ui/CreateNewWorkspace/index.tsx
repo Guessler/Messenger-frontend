@@ -46,7 +46,7 @@ export default function CreateNewWorkspace({ onCreate }: CreateNewWorkspaceProps
         <Box>
             <Dialog open={isModalOpen} onClose={handleClose} fullWidth maxWidth="sm">
                 <DialogTitle>
-                    Создать новый воркспейс {/* Убрали Typography */}
+                    Создать новый воркспейс
                 </DialogTitle>
                 <DialogContent>
                     <Box component="form" noValidate autoComplete="off" sx={{ mt: 2 }}>

@@ -2,17 +2,21 @@
 
 import React from 'react';
 import Contacts from '@/components/ui/Contacts/Contacts';
-import WorkSpace from '@/components/ui/Contacts/[id]';
 import { Box } from '@mui/material';
 import { withAuth } from '@/hoc/withAuth';
-import CreateNewWorkspace from "../../components/ui/CreateNewWorkspace"
+import CreateNewWorkspace from '../../components/ui/CreateNewWorkspace';
+import { useAppSelector } from '@/hooks/redux';
+import EmptyWorkspace from '@/components/ui/WorkSpace/EmptyWorkspace';
+import WorkSpace from '@/components/ui/WorkSpace/[id]';
 
 function ChatsPage() {
+    const selectedWorkspaceId = useAppSelector((state) => state.workspace.selectedWorkspaceId);
+
     return (
-        <Box sx={{ display: "flex", gap: "20px" }}>
+        <Box sx={{ display: 'flex', gap: '20px' }}>
             <Contacts />
-            <WorkSpace />
-            <CreateNewWorkspace onCreate={() => { name: "first-wrkspace"; description: "first-descr" }} />
+            {selectedWorkspaceId ? <WorkSpace /> : <EmptyWorkspace />}
+            <CreateNewWorkspace onCreate={() => { }} />
         </Box>
     );
 }

@@ -48,7 +48,6 @@ export default function WorkSpace() {
                 transition: 'all 0.3s ease',
             }}
         >
-            {/* Шапка чата */}
             <ListItemButton
                 sx={{
                     width: '100%',
@@ -91,84 +90,132 @@ export default function WorkSpace() {
 
             <Divider sx={{ my: 2 }} />
 
+            {/* Область чата с сообщениями */}
             <Box
                 sx={{
                     flex: 1,
                     width: '100%',
                     backgroundColor: '#F9FAFB',
                     borderRadius: '16px',
+                    p: 2,
+                    boxSizing: 'border-box',
                     overflowY: 'auto',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                     border: '1px solid #E5E7EB',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 1,
                 }}
             >
-                <Typography color="text.secondary" align="center">
-                    Начните общение с {selectedContact.name}
-                </Typography>
+                {/* Сообщение собеседника */}
+                <Box
+                    sx={{
+                        alignSelf: 'flex-start',
+                        maxWidth: '70%',
+                        backgroundColor: '#FFFFFF',
+                        color: 'text.primary',
+                        borderRadius: '8px',
+                        p: 1.5,
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                        fontSize: '0.875rem',
+                    }}
+                >
+                    Привет! Как дела? 😊
+                </Box>
+
+                {/* Моё сообщение */}
+                <Box
+                    sx={{
+                        alignSelf: 'flex-end',
+                        maxWidth: '70%',
+                        backgroundColor: '#3B82F6',
+                        color: '#fff',
+                        borderRadius: '8px',
+                        p: 1.5,
+                        boxShadow: '0 1px 3px rgba(59,130,246,0.3)',
+                        fontSize: '0.875rem',
+                    }}
+                >
+                    Отлично! А у тебя?
+                </Box>
+
+                {/* Ещё одно сообщение собеседника */}
+                <Box
+                    sx={{
+                        alignSelf: 'flex-start',
+                        maxWidth: '70%',
+                        backgroundColor: '#FFFFFF',
+                        color: 'text.primary',
+                        borderRadius: '8px',
+                        p: 1.5,
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
+                        fontSize: '0.875rem',
+                    }}
+                >
+                    Всё хорошо, спасибо!
+                </Box>
             </Box>
 
-<Box
-    component="form"
-    onSubmit={(e) => e.preventDefault()}
-    sx={{
-        mt: 2,
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1,
-        backgroundColor: '#F9FAFB',
-        borderRadius: '12px',
-        p: 1,
-        border: '1px solid #E5E7EB',
-        transition: 'box-shadow 0.3s ease',
-        '&:focus-within': {
-            boxShadow: '0 0 8px rgba(59, 130, 246, 0.3)',
-        },
-    }}
->
-    <TextField
-        fullWidth
-        variant="outlined"
-        placeholder="Введите сообщение..."
-        multiline
-        minRows={2}
-        maxRows={4}
-        sx={{
-            backgroundColor: '#fff',
-            borderRadius: '8px',
-            '& .MuiOutlinedInput-root': {
-                borderRadius: '8px',
-                padding: '8px 12px',
-                minHeight: '56px',
-                display: 'flex',
-                alignItems: 'center',
-            },
-            '& textarea': {
-                resize: 'none',
-            },
-        }}
-    />
-    <IconButton
-        type="submit"
-        color="primary"
-        sx={{
-            width: 40,
-            height: 40,
-            backgroundColor: '#3B82F6',
-            color: '#ffffff',
-            boxShadow: '0 2px 6px rgba(59, 130, 246, 0.3)',
-            '&:hover': {
-                backgroundColor: '#2563EB',
-                boxShadow: '0 4px 10px rgba(37, 99, 235, 0.4)',
-            },
-            transition: 'all 0.2s ease',
-            alignSelf: 'center',
-        }}
-    >
-        <SendIcon fontSize="small" />
-    </IconButton>
-</Box>
+            {/* Поле ввода внизу */}
+            <Box
+                component="form"
+                onSubmit={(e) => e.preventDefault()}
+                sx={{
+                    mt: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    backgroundColor: '#F9FAFB',
+                    borderRadius: '12px',
+                    p: 1,
+                    border: '1px solid #E5E7EB',
+                    transition: 'box-shadow 0.3s ease',
+                    '&:focus-within': {
+                        boxShadow: '0 0 8px rgba(59, 130, 246, 0.3)',
+                    },
+                }}
+            >
+                <TextField
+                    fullWidth
+                    variant="outlined"
+                    placeholder="Введите сообщение..."
+                    multiline
+                    minRows={2}
+                    maxRows={4}
+                    sx={{
+                        backgroundColor: '#fff',
+                        borderRadius: '8px',
+                        '& .MuiOutlinedInput-root': {
+                            borderRadius: '8px',
+                            padding: '8px 12px',
+                            minHeight: '56px',
+                            display: 'flex',
+                            alignItems: 'center',
+                        },
+                        '& textarea': {
+                            resize: 'none',
+                        },
+                    }}
+                />
+                <IconButton
+                    type="submit"
+                    color="primary"
+                    sx={{
+                        width: 40,
+                        height: 40,
+                        backgroundColor: '#3B82F6',
+                        color: '#ffffff',
+                        boxShadow: '0 2px 6px rgba(59, 130, 246, 0.3)',
+                        '&:hover': {
+                            backgroundColor: '#2563EB',
+                            boxShadow: '0 4px 10px rgba(37, 99, 235, 0.4)',
+                        },
+                        transition: 'all 0.2s ease',
+                        alignSelf: 'center',
+                    }}
+                >
+                    <SendIcon fontSize="small" />
+                </IconButton>
+            </Box>
         </Box>
     );
 }

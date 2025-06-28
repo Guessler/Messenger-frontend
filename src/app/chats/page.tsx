@@ -7,15 +7,15 @@ import { withAuth } from '@/hoc/withAuth';
 import CreateNewWorkspace from '../../components/ui/CreateNewWorkspace';
 import { useAppSelector } from '@/hooks/redux';
 import EmptyWorkspace from '@/components/ui/WorkSpace/EmptyWorkspace';
-import WorkSpace from '@/components/ui/WorkSpace/[id]';
+import WorkSpace from '@/app/chats/[id]/page';
 
 function ChatsPage() {
-    const selectedWorkspaceId = useAppSelector((state) => state.workspace.selectedWorkspaceId);
+    const selectedContact = useAppSelector((state) => state.workspace.selectedContact);
 
     return (
         <Box sx={{ display: 'flex', gap: '20px' }}>
             <Contacts />
-            {selectedWorkspaceId ? <WorkSpace /> : <EmptyWorkspace />}
+            {selectedContact ? <WorkSpace /> : <EmptyWorkspace />}
             <CreateNewWorkspace onCreate={() => { }} />
         </Box>
     );

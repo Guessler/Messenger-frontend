@@ -1,26 +1,34 @@
+// store/reducers/workspaceReducer.ts
+
 import { createSlice } from '@reduxjs/toolkit';
 
+interface SelectedContact {
+    id: number;
+    name: string;
+    message: string;
+}
+
 interface WorkspaceState {
-    selectedWorkspaceId: string | null;
+    selectedContact: SelectedContact | null;
 }
 
 const initialState: WorkspaceState = {
-    selectedWorkspaceId: null,
+    selectedContact: null,
 };
 
 const workspaceSlice = createSlice({
     name: 'workspace',
     initialState,
     reducers: {
-        selectWorkspace: (state, action) => {
-            state.selectedWorkspaceId = action.payload;
+        selectContact: (state, action) => {
+            state.selectedContact = action.payload;
         },
-        deselectWorkspace: (state) => {
-            state.selectedWorkspaceId = null;
+        deselectContact: (state) => {
+            state.selectedContact = null;
         },
     },
 });
 
-export const { selectWorkspace, deselectWorkspace } = workspaceSlice.actions;
+export const { selectContact, deselectContact } = workspaceSlice.actions;
 
 export default workspaceSlice.reducer;

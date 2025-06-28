@@ -1,21 +1,34 @@
 'use client';
 
 import React from 'react';
+import { useAppSelector } from '@/hooks/redux';
 import {
     Box,
-    Typography,
     Avatar,
     ListItemAvatar,
     ListItemButton,
     ListItemText,
+    Typography,
 } from '@mui/material';
 
-const fakeData = {
-    name: 'TL',
-    lastActive: 'Сегодня',
-};
-
 export default function WorkSpace() {
+    const selectedContact = useAppSelector((state) => state.workspace.selectedContact);
+
+    if (!selectedContact) {
+        return (
+            <Box
+                sx={{
+                    flex: 1,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography color="text.secondary">Контакт не выбран</Typography>
+            </Box>
+        );
+    }
+
     return (
         <Box
             sx={{
@@ -41,16 +54,8 @@ export default function WorkSpace() {
                     <Avatar />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={
-                        <Typography noWrap component="div">
-                            {fakeData.name}
-                        </Typography>
-                    }
-                    secondary={
-                        <Typography noWrap component="span">
-                            {fakeData.lastActive}
-                        </Typography>
-                    }
+                    primary={selectedContact.name}
+                    secondary={selectedContact.message}
                     primaryTypographyProps={{ noWrap: true }}
                     secondaryTypographyProps={{ noWrap: true }}
                 />

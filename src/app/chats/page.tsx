@@ -7,7 +7,7 @@ import { withAuth } from '@/hoc/withAuth';
 import CreateNewWorkspace from '../../components/ui/CreateNewWorkspace';
 import { useAppSelector } from '@/hooks/redux';
 import EmptyWorkspace from '@/components/ui/WorkSpace/EmptyWorkspace';
-import WorkSpace from '@/app/chats/[id]/page';
+import WorkSpace from '@/components/ui/WorkSpace/Workspace';
 
 function ChatsPage() {
     const selectedContact = useAppSelector((state) => state.workspace.selectedContact);

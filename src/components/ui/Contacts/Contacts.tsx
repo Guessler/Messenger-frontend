@@ -89,7 +89,6 @@ export default function Contacts() {
                 boxShadow: 1,
             }}
         >
-            {/* Заголовок + кнопка создания */}
             <Box
                 sx={{
                     display: 'flex',
@@ -116,13 +115,12 @@ export default function Contacts() {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
-                    onClick={() => {modalDispatch(openModal())}}
+                    onClick={() => { modalDispatch(openModal()) }}
                 >
                     <EditIcon fontSize="small" />
                 </Button>
             </Box>
 
-            {/* Поиск */}
             <Box sx={{ px: 2.5, pb: 1 }}>
                 <SearchWrapper>
                     <SearchIconWrapper>
@@ -139,37 +137,30 @@ export default function Contacts() {
                 </SearchWrapper>
             </Box>
 
-            {/* Список контактов с переходом через Link */}
             <List sx={{ mb: 2 }}>
                 {messages.map(({ id, name, message, person }) => (
-                    // <Link
-                    //     href={`/chats/${id}`}
-                    //     key={id}
-                    //     style={{ textDecoration: 'none', color: 'inherit' }}
-                    // >
-                        <ListItemButton
-                            onClick={() => dispatch(selectContact({ id, name, message }))
-                        }
-                            sx={{
-                                boxShadow: 'none',
-                                borderRadius: 0,
-                                '&:hover': {
-                                    backgroundColor: 'action.hover',
-                                },
-                                '&:focus-visible': {
-                                    outline: 'none',
-                                },
-                            }}
-                        >
-                            <ListItemAvatar>
-                                <Avatar alt={name} src={person} />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={<Typography noWrap>{name}</Typography>}
-                                secondary={<Typography noWrap color="text.secondary">{message.slice(0, 35)}...</Typography>}
-                            />
-                        </ListItemButton>
-                    // </Link>
+                    <ListItemButton
+                        key={id}  // ✅ Add this line
+                        onClick={() => dispatch(selectContact({ id, name, message }))}
+                        sx={{
+                            boxShadow: 'none',
+                            borderRadius: 0,
+                            '&:hover': {
+                                backgroundColor: 'action.hover',
+                            },
+                            '&:focus-visible': {
+                                outline: 'none',
+                            },
+                        }}
+                    >
+                        <ListItemAvatar>
+                            <Avatar alt={name} src={person} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={<Typography noWrap>{name}</Typography>}
+                            secondary={<Typography noWrap color="text.secondary">{message.slice(0, 35)}...</Typography>}
+                        />
+                    </ListItemButton>
                 ))}
             </List>
         </Paper>

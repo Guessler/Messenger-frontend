@@ -28,9 +28,9 @@ type ContactProps = {
 const messages = [
     {
         id: 1,
-        name: 'Александр',
-        message: "Привет! Как насчёт встретиться на выходных? Хочу показать новый парк в районе.",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
+        name: 'Избранное',
+        message: "Тут находится все, что важно для тебя",
+        person: `${MINIO_BUCKET_URL}/favourites.svg`,
     },
     {
         id: 2,
@@ -68,6 +68,7 @@ const messages = [
         message: "Решила устроить пикник в субботу! Кто хочет присоединиться? Просто скажите, что привезёте.",
         person: `${MINIO_BUCKET_URL}/tinyline.svg`,
     },
+
 
 ];
 export default function Contacts() {
@@ -140,7 +141,7 @@ export default function Contacts() {
             <List sx={{ mb: 2 }}>
                 {messages.map(({ id, name, message, person }) => (
                     <ListItemButton
-                        key={id}  // ✅ Add this line
+                        key={id}
                         onClick={() => dispatch(selectContact({ id, name, message }))}
                         sx={{
                             boxShadow: 'none',

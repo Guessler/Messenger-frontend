@@ -8,7 +8,7 @@ import {
     Stack,
     Button,
 } from '@mui/material';
-import { getUserFromToken} from '@/utils/auth.utils';
+import { getUserFromToken } from '@/utils/auth.utils';
 import { withAuth } from '@/hoc/withAuth';
 
 function Settings() {
@@ -44,9 +44,14 @@ function Settings() {
                     </Typography>
 
                     {user ? (
-                        <Typography variant="subtitle1" fontWeight="medium" color="text.primary">
-                            Ваш email: <strong>{user.email}</strong>
-                        </Typography>
+                        <>
+                            <Typography variant="subtitle1" fontWeight="medium" color="text.primary">
+                                Ваш email: <strong>{user.email}</strong>
+                            </Typography>
+                            <Typography variant="subtitle1" fontWeight="medium" color="text.primary">
+                                Ваше имя: <strong>{user.name}</strong>
+                            </Typography>
+                        </>
                     ) : (
                         <Typography color="error">Вы не авторизованы</Typography>
                     )}

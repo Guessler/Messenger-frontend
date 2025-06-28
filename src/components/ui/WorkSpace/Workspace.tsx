@@ -90,7 +90,6 @@ export default function WorkSpace() {
 
             <Divider sx={{ my: 2 }} />
 
-            {/* Область чата с сообщениями */}
             <Box
                 sx={{
                     flex: 1,

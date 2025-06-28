@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface User {
     id: number;
+    name: string;
     email: string;
     roles: string[];
 }
@@ -12,12 +13,11 @@ export interface AuthState {
     isAuthenticated: boolean;
 }
 
-// Восстанавливаем токен из localStorage
 const storedToken = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
 const initialState: AuthState = {
     token: storedToken,
-    user: null, // Пока не восстанавливаем пользователя — его нужно получить с сервера
+    user: null,
     isAuthenticated: !!storedToken,
 };
 

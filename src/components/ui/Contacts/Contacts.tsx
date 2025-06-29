@@ -34,42 +34,10 @@ const messages = [
     },
     {
         id: 2,
-        name: 'Мария',
-        message: "Посоветуй что-нибудь интересное для подарка на день рождения. Уже весь интернет пересмотрела.",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
+        name: 'Bot',
+        message: "Дам ответ на любой вопрос",
+        person: `${MINIO_BUCKET_URL}/bot.svg`,
     },
-    {
-        id: 3,
-        name: 'Дмитрий',
-        message: "Сегодня готовил новое блюдо по рецепту из YouTube, получилось неожиданно вкусно!",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
-    },
-    {
-        id: 4,
-        name: 'Екатерина',
-        message: "Ура! Наконец-то достала билеты на конференцию по дизайну, давно мечтала попасть.",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
-    },
-    {
-        id: 5,
-        name: 'Николай',
-        message: "Запись к врачу перенесена на следующий вторник. Придётся подождать ещё немного.",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
-    },
-    {
-        id: 6,
-        name: 'Ольга',
-        message: "Обсуждали сегодня на работе интерфейс мобильного приложения. Думаю, нужно всё переделать с нуля.",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
-    },
-    {
-        id: 7,
-        name: 'Татьяна',
-        message: "Решила устроить пикник в субботу! Кто хочет присоединиться? Просто скажите, что привезёте.",
-        person: `${MINIO_BUCKET_URL}/tinyline.svg`,
-    },
-
-
 ];
 export default function Contacts() {
     const dispatch = useDispatch();

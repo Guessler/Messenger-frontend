@@ -53,23 +53,13 @@ export default function CreateNewWorkspace({ onCreate }: CreateNewWorkspaceProps
                         <TextField
                             autoFocus
                             margin="dense"
-                            label="Название воркспейса"
+                            label="Почта человека, с которым хотите начать общение"
                             type="text"
                             fullWidth
                             variant="outlined"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             required
-                        />
-                        <TextField
-                            margin="dense"
-                            label="Описание (необязательно)"
-                            type="text"
-                            fullWidth
-                            variant="outlined"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            sx={{ mt: 2 }}
                         />
                     </Box>
                 </DialogContent>

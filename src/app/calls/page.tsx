@@ -5,6 +5,7 @@ import {
     Typography,
     Container,
     Stack,
+    Grid,
 } from '@mui/material';
 import { withAuth } from '@/hoc/withAuth';
 
@@ -32,6 +33,7 @@ const Calls = () => {
                     <Typography variant="body1" color="text.secondary">
                         Скоро здесь будет функционал для звонков. Спасибо за понимание!
                     </Typography>
+
                 </Stack>
             </Container>
         </Box>

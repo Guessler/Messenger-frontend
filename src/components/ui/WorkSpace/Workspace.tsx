@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppSelector } from '@/hooks/redux';
 import {
     Box,
@@ -15,8 +15,32 @@ import {
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 
+interface MessagesProps {
+    id: number,
+    message: string
+}
+
 export default function WorkSpace() {
     const selectedContact = useAppSelector((state) => state.workspace.selectedContact);
+    const [value, setValue] = useState('')
+    const [messages, setMessages] = useState<MessagesProps[]>([])
+
+    const handleSendMessage = () => {
+        if (!value.trim()) return
+        const message = {
+            id: Date.now(),
+            message: value
+        }
+        setMessages([...messages, message])
+        setValue('')
+    }
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if(e.key === 'Enter' && !e.shiftKey){
+            e.preventDefault();
+            handleSendMessage();
+        }
+    }
 
     if (!selectedContact) {
         return (
@@ -105,7 +129,6 @@ export default function WorkSpace() {
                     gap: 1,
                 }}
             >
-                {/* Сообщение собеседника */}
                 <Box
                     sx={{
                         alignSelf: 'flex-start',
@@ -121,8 +144,25 @@ export default function WorkSpace() {
                     Привет! Как дела? 😊
                 </Box>
 
-                {/* Моё сообщение */}
-                <Box
+                {messages.map((message) => (
+                    <Box
+                        key={message.id}
+                        sx={{
+                            alignSelf: 'flex-end',
+                            maxWidth: '70%',
+                            backgroundColor: '#3B82F6',
+                            color: '#fff',
+                            borderRadius: '8px',
+                            p: 1.5,
+                            boxShadow: '0 1px 3px rgba(59,130,246,0.3)',
+                            fontSize: '0.875rem',
+                        }}
+                    >
+                        {message.message}
+                    </Box>
+                ))}
+
+                {/* <Box
                     sx={{
                         alignSelf: 'flex-end',
                         maxWidth: '70%',
@@ -135,9 +175,8 @@ export default function WorkSpace() {
                     }}
                 >
                     Отлично! А у тебя?
-                </Box>
+                </Box> */}
 
-                {/* Ещё одно сообщение собеседника */}
                 <Box
                     sx={{
                         alignSelf: 'flex-start',
@@ -154,7 +193,6 @@ export default function WorkSpace() {
                 </Box>
             </Box>
 
-            {/* Поле ввода внизу */}
             <Box
                 component="form"
                 onSubmit={(e) => e.preventDefault()}
@@ -174,6 +212,9 @@ export default function WorkSpace() {
                 }}
             >
                 <TextField
+                    onKeyDown={handleKeyDown}
+                    onChange={(e) => setValue(e.target.value)}
+                    value={value}
                     fullWidth
                     variant="outlined"
                     placeholder="Введите сообщение..."
@@ -198,6 +239,7 @@ export default function WorkSpace() {
                 <IconButton
                     type="submit"
                     color="primary"
+                    onClick={handleSendMessage}
                     sx={{
                         width: 40,
                         height: 40,

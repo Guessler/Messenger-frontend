@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { closeModal } from '@/store/reducers/modalReducer';
+import { addContact } from '@/store/reducers/contactsSlice';
 
 interface CreateNewWorkspaceProps {
     onCreate: (workspaceData: { name: string; description: string }) => void;
@@ -18,6 +19,7 @@ interface CreateNewWorkspaceProps {
 
 export default function CreateNewWorkspace({ onCreate }: CreateNewWorkspaceProps) {
     const dispatch = useAppDispatch();
+    const addCustomerDispatch = useAppDispatch();
     const isModalOpen = useAppSelector((state) => state.modal.open);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -31,6 +33,7 @@ export default function CreateNewWorkspace({ onCreate }: CreateNewWorkspaceProps
     const handleCreate = () => {
         if (!name.trim()) return;
 
+        addCustomerDispatch(addContact({name: name.trim()}))
         onCreate({ name, description });
         handleClose();
     };

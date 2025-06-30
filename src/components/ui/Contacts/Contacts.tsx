@@ -1,5 +1,3 @@
-// components/ui/Contacts/Contacts.tsx
-
 import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -11,37 +9,35 @@ import Avatar from '@mui/material/Avatar';
 import { env } from "@utils";
 import { useDispatch } from 'react-redux';
 import { selectContact } from '@/store/reducers/workspaceReducer';
-import Link from 'next/link';
 import Button from '@mui/material/Button';
 import EditIcon from '@mui/icons-material/Edit';
 import SearchIcon from '@mui/icons-material/Search';
 import { alpha, Box, InputBase, styled } from '@mui/material';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { openModal } from '@/store/reducers/modalReducer';
 
 const MINIO_BUCKET_URL = env.MINIO_BUCKET_URL;
 
-type ContactProps = {
-    onSelectWorkspace?: (contact: { id: number; name: string; message: string }) => void;
-};
-
-const messages = [
-    {
-        id: 1,
-        name: 'Избранное',
-        message: "Тут находится все, что важно для тебя",
-        person: `${MINIO_BUCKET_URL}/favourites.svg`,
-    },
-    {
-        id: 2,
-        name: 'Bot',
-        message: "Дам ответ на любой вопрос",
-        person: `${MINIO_BUCKET_URL}/bot.svg`,
-    },
-];
 export default function Contacts() {
     const dispatch = useDispatch();
-    const modalDispatch = useAppDispatch()
+    const modalDispatch = useAppDispatch();
+
+    const contacts = useAppSelector((state) => state.contacts.contacts);
+
+    const staticContacts = [
+        {
+            id: 1,
+            name: 'Избранное',
+            message: "Тут находится все, что важно для тебя",
+            person: `${MINIO_BUCKET_URL}/favourites.svg`,
+        },
+        {
+            id: 2,
+            name: 'Bot',
+            message: "Дам ответ на любой вопрос",
+            person: `${MINIO_BUCKET_URL}/bot.svg`,
+        },
+    ];
 
     return (
         <Paper
@@ -84,7 +80,7 @@ export default function Contacts() {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
-                    onClick={() => { modalDispatch(openModal()) }}
+                    onClick={() => modalDispatch(openModal())}
                 >
                     <EditIcon fontSize="small" />
                 </Button>
@@ -99,15 +95,13 @@ export default function Contacts() {
                         placeholder="Поиск…"
                         inputProps={{ 'aria-label': 'поиск контактов' }}
                         className="search-input"
-                        sx={{
-                            fontSize: '0.875rem',
-                        }}
+                        sx={{ fontSize: '0.875rem' }}
                     />
                 </SearchWrapper>
             </Box>
 
             <List sx={{ mb: 2 }}>
-                {messages.map(({ id, name, message, person }) => (
+                {staticContacts.map(({ id, name, message, person }) => (
                     <ListItemButton
                         key={id}
                         onClick={() => dispatch(selectContact({ id, name, message }))}
@@ -131,11 +125,55 @@ export default function Contacts() {
                         />
                     </ListItemButton>
                 ))}
+
+                {contacts.length > 0 && (
+                    <Box sx={{ px: 2.5, py: 1 }}>
+                        <Typography variant="caption" color="text.secondary">
+                            Контакты
+                        </Typography>
+                    </Box>
+                )}
+
+                {contacts.map((contact) => (
+                    <ListItemButton
+                        key={contact.id}
+                        onClick={() => dispatch(selectContact({
+                            id: contact.id,
+                            name: contact.name,
+                            message: "Пример последнего сообщения"
+                        }))}
+                        sx={{
+                            boxShadow: 'none',
+                            borderRadius: 0,
+                            '&:hover': {
+                                backgroundColor: 'action.hover',
+                            },
+                            '&:focus-visible': {
+                                outline: 'none',
+                            },
+                        }}
+                    >
+                        <ListItemAvatar>
+                            <Avatar alt={contact.name} src={`${MINIO_BUCKET_URL}/default-avatar.png`} />
+                        </ListItemAvatar>
+                        <ListItemText
+                            primary={<Typography noWrap>{contact.name}</Typography>}
+                            secondary={<Typography noWrap color="text.secondary">Пример сообщения</Typography>}
+                        />
+                    </ListItemButton>
+                ))}
+
+                {contacts.length === 0 && (
+                    <Box sx={{ px: 2.5, py: 2 }}>
+                        <Typography variant="body2" color="text.secondary" align="center">
+                            Контактов пока нет
+                        </Typography>
+                    </Box>
+                )}
             </List>
         </Paper>
     );
 }
-
 
 const SearchWrapper = styled('div')(({ theme }) => ({
     position: 'relative',

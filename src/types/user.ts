@@ -9,3 +9,13 @@ export interface LoginUserDto {
     password: string;
     
 }
+
+export interface AddContactDto {
+    userId: number;
+}
+
+export interface Contact {
+    id: number;
+    userId: number;
+    name: string;
+}

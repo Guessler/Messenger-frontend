@@ -8,7 +8,6 @@ const modalSlice = createSlice({
     reducers: {
         openModal: (state) => {
             state.open = true
-            // alert('Модалка открылась: ')
         },
         closeModal: (state) => {
             state.open = false

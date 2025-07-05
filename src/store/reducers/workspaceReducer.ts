@@ -1,5 +1,3 @@
-// store/reducers/workspaceReducer.ts
-
 import { createSlice } from '@reduxjs/toolkit';
 
 interface SelectedContact {
